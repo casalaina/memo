@@ -15,38 +15,21 @@
     // set url on first, if first is falsey
     if (!$selected1) {
       $selected1 = item.url;
-      console.log($selected1);
     } else {
       // set url on second, if first isn't falsey
       $selected2 = item.url;
-      console.log($selected2);
-
-      // if they match, up score, hide elements, and reset store
-      if ($selected1 === $selected2) {
-        $scorePlayer1++;
-        $selected1 = $selected2 = "";
-        console.log($selected1, $selected2);
-        console.log(`match!`);
-      } else {
-        // otherwise flip back over, reset store
-        setTimeout(function () {
-          console.log(`no match!`);
-          // current.childNodes[0].className = `card ${index}`;
-          $selected1 = $selected2 = "";
-        }, 1000);
-      }
     }
   };
   onMount(() => {});
 </script>
 
-<div class="cardWrap" bind:this={current}>
-  <div class={selected ? `card ${index}` : `card ${index} selected`} on:click={cardLogic} on:keydown={cardLogic}>
-    <div class="cardSide back">
-      <img src={cardBg} alt="back of card" />
-    </div>
+<div class="cardWrap">
+  <div class={!selected ? `card ${index}` : `card ${index} selected`} on:click={cardLogic} on:keydown={cardLogic} bind:this={current}>
     <div class="cardSide image">
       <img src={item.url} alt={item.description} />
+    </div>
+    <div class="cardSide back">
+      <img src={cardBg} alt="back of card" />
     </div>
   </div>
 </div>
@@ -66,9 +49,10 @@
     transition: transform 1s;
     transform-style: preserve-3d;
     cursor: pointer;
+    transform: rotateY(180deg);
 
     &.selected {
-      transform: rotateY(180deg);
+      transform: rotateY(0);
     }
 
     &.hidden {

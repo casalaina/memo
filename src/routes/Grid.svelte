@@ -1,21 +1,7 @@
 <script>
   export let data;
   import Card from "./Card.svelte";
-  import { getContext } from "svelte";
-
-  // duplicate all the array items
-  data.content = data.content.flatMap((i) => [i, i]);
-
-  // Randomize array in-place using Durstenfeld shuffle algorithm
-  const shuffleArray = (array) => {
-    for (var i = array.length - 1; i > 0; i--) {
-      var j = Math.floor(Math.random() * (i + 1));
-      var temp = array[i];
-      array[i] = array[j];
-      array[j] = temp;
-    }
-  };
-  shuffleArray(data.content);
+  import { scorePlayer1, scorePlayer2, selected1, selected2 } from "../$lib/stores.js";
 </script>
 
 <div id="grid">
