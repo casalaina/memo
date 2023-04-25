@@ -1,11 +1,15 @@
 <script>
   export let data;
-  import Game from "./Game.svelte";
+
+  import Grid from "./Grid.svelte";
+  import Sidebar from "./Sidebar.svelte";
+
   import spaceBg from "../assets/space-bg.jpg";
 </script>
 
 <main style={`background-image:url(${spaceBg})`}>
-  <Game {data} />
+  <Sidebar />
+  <Grid {data} />
 </main>
 
 <style lang="scss">

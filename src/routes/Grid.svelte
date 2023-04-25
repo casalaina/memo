@@ -1,6 +1,7 @@
 <script>
   export let data;
   import Card from "./Card.svelte";
+  import { getContext } from "svelte";
 
   // duplicate all the array items
   data.content = data.content.flatMap((i) => [i, i]);
@@ -18,8 +19,8 @@
 </script>
 
 <div id="grid">
-  {#each data.content as item}
-    <Card {item} />
+  {#each data.content as item, index}
+    <Card {item} {index} />
   {/each}
 </div>
 
