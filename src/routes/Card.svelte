@@ -1,30 +1,10 @@
 <script>
   export let item;
-  export let index;
-  import { onMount } from "svelte";
-
-  import { fade } from "svelte/transition";
   import cardBg from "../assets/card-bg.jpg";
-  let selected = false;
-  let current;
-  import { scorePlayer1, scorePlayer2, selected1, selected2 } from "../$lib/stores.js";
-
-  let cardLogic = () => {
-    // toggle class
-    selected = !selected;
-    // set url on first, if first is falsey
-    if (!$selected1) {
-      $selected1 = item.url;
-    } else {
-      // set url on second, if first isn't falsey
-      $selected2 = item.url;
-    }
-  };
-  onMount(() => {});
 </script>
 
 <div class="cardWrap">
-  <div class={!selected ? `card ${index}` : `card ${index} selected`} on:click={cardLogic} on:keydown={cardLogic} bind:this={current}>
+  <div class={item.selected ? "card selected" : item.hidden ? "card hidden" : "card"} on:click on:keydown>
     <div class="cardSide image">
       <img src={item.url} alt={item.description} />
     </div>
