@@ -1,34 +1,39 @@
 <script>
   export let data;
   import Card from "./Card.svelte";
-  import { scorePlayer1, scorePlayer2, selected1, selected2 } from "../$lib/stores.js";
+  import { scorePlayer1, scorePlayer2 } from "../$lib/stores.js";
   let card1, card2;
+  let grid;
 
   let evaluate = () => {
-    console.log(`evaluate`);
-    // if they match, up score, hide elements, and reset store
+    // prevent game play during evaluation animation
+    grid.style.pointerEvents = "none";
+    // if they match, up the score, hide elements, and reset vars
     if (data.content[card1].url === data.content[card2].url) {
-      console.log(`match!`);
-      data.content[card1].selected = data.content[card2].selected = false;
       data.content[card1].hidden = data.content[card2].hidden = true;
-      $scorePlayer1++;
-      card1 = card2 = undefined;
+      setTimeout(function () {
+        data.content[card1].selected = data.content[card2].selected = false;
+        grid.style.pointerEvents = "all";
+        $scorePlayer1++;
+        card1 = card2 = undefined;
+      }, 2000);
     } else {
-      // otherwise flip back over, reset store
-      console.log(`no match!`);
+      // otherwise flip back over, reset vars
       setTimeout(function () {
         data.content[card1].selected = data.content[card2].selected = false;
         card1 = card2 = undefined;
+        grid.style.pointerEvents = "all";
       }, 1000);
     }
   };
 
   let cardLogic = (i) => {
-    // set url on first, if first is falsey
+    // set selected on first, if card1 isn't defined
     if (card1 == undefined) {
       card1 = i;
       data.content[card1].selected = true;
     } else {
+      // set selected on second, if card2 isn't defined
       card2 = i;
       data.content[card2].selected = true;
       evaluate();
@@ -36,7 +41,7 @@
   };
 </script>
 
-<div id="grid">
+<div id="grid" bind:this={grid}>
   {#each data.content as item, index}
     <Card
       {item}
@@ -50,13 +55,24 @@
 </div>
 
 <style lang="scss">
+  $wrapW: 80vw; // width of wrapper
+  $wrapH: 80vh; // height of wrapper
+  $ratioW: 400; // the natural width of background image
+  $ratioH: 225; // the natural height of background image
+
   #grid {
-    display: grid;
-    height: auot;
-    width: 80%;
-    grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: repeat(4, 1fr);
-    grid-column-gap: 2vw;
-    grid-row-gap: 2vw;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 80vw;
+
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    background-color: rgba(green, 0.5);
+    margin: 0;
+    padding: 1%;
   }
 </style>

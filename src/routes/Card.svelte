@@ -16,27 +16,63 @@
 
 <style lang="scss" global>
   .cardWrap {
-    width: 100%;
+    min-width: 25%;
+    margin: 2%;
     border-radius: 0.5vw;
-    aspect-ratio: 1/1;
     perspective: 500px;
+    flex-shrink: 1;
+    aspect-ratio: 1/1;
+
+    // usually don't love a bunch of media queries, but making an exception
+    // to keep this grid filling the space as best as possible
+    // using aspect-ratio queries to avoid having to mess with a million heights
+    // and widths
+    @media (min-aspect-ratio: 50/100) {
+      min-width: 22%;
+      margin: 1.5%;
+    }
+    @media (min-aspect-ratio: 75/100) {
+      min-width: 20%;
+    }
+    @media (min-aspect-ratio: 85/100) {
+      min-width: 17%;
+    }
+    @media (min-aspect-ratio: 120/100) {
+      min-width: 15%;
+      margin: 1%;
+    }
+    // @media (min-aspect-ratio: 150/100) {
+    //   min-width: 13%;
+    // }
+    @media (min-aspect-ratio: 170/100) {
+      min-width: 12%;
+    }
+    @media (min-aspect-ratio: 200/100) {
+      min-width: 10%;
+    }
   }
 
   .card {
     position: absolute;
     width: 100%;
     height: 100%;
-    transition: transform 1s;
+    transition: transform 1s, opacity 1s;
     transform-style: preserve-3d;
     cursor: pointer;
     transform: rotateY(180deg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     &.selected {
       transform: rotateY(0);
+      pointer-events: none;
+      cursor: not-allowed;
     }
 
     &.hidden {
       opacity: 0;
+      transform: scale(0.1);
       pointer-events: none;
     }
 
