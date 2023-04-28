@@ -40,7 +40,7 @@
 
     #inner {
       display: flex;
-      justify-content: flex-start;
+      justify-content: center;
       align-items: flex-start;
       flex-direction: column;
       width: 100%;
@@ -48,7 +48,6 @@
       align-content: stretch;
 
       @media #{$md} {
-        padding: 2vw;
         flex-direction: row;
       }
     }

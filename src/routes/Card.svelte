@@ -43,13 +43,14 @@
       min-width: 15%;
       margin: 1%;
     }
-    // @media (min-aspect-ratio: 150/100) {
-    //   min-width: 13%;
+    // @media (min-aspect-ratio: 170/100) {
+    //   min-width: 14%;
+    //   margin: 1.25%;
     // }
-    @media (min-aspect-ratio: 170/100) {
-      min-width: 12%;
+    @media (min-aspect-ratio: 180/100) {
+      min-width: 13%;
     }
-    @media (min-aspect-ratio: 200/100) {
+    @media (min-aspect-ratio: 210/100) {
       min-width: 10%;
     }
   }

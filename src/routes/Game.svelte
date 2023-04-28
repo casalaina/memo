@@ -65,5 +65,13 @@
     align-items: center;
     flex-wrap: wrap;
     margin: 0;
+
+    @media #{$lg} {
+      max-width: 75vw;
+    }
+
+    @media #{$xl} {
+      max-width: auto;
+    }
   }
 </style>
