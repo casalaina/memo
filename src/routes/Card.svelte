@@ -1,7 +1,5 @@
 <script>
   export let item;
-  export let index;
-
   import cardBg from "../assets/card-bg.jpg";
 </script>
 
