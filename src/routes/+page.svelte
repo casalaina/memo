@@ -12,18 +12,18 @@
 </main>
 
 <style lang="scss" global>
+  :global(*) {
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    -webkit-font-smoothing: antialiased;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
   :global(body),
   :global(#svelte),
   :global(main) {
     width: 100vw;
     min-height: 100vh;
-    margin: 0;
-    padding: 0;
-  }
-  :global(*) {
-    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-    -webkit-font-smoothing: antialiased;
-    box-sizing: border-box;
     margin: 0;
     padding: 0;
   }
@@ -38,9 +38,9 @@
     align-items: flex-start;
     flex-direction: column;
 
-    @media #{$md} {
-      padding: 2vw;
-      flex-direction: row;
-    }
+    // @media #{$md} {
+    //   padding: 2vw;
+    //   flex-direction: row;
+    // }
   }
 </style>

@@ -14,7 +14,9 @@
   </div>
 </div>
 
-<style lang="scss" global>
+<style lang="scss">
+  @import "../src/styles/vars";
+
   .cardWrap {
     min-width: 25%;
     margin: 2%;
