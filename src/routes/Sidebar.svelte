@@ -1,13 +1,13 @@
 <script>
   import { scorePlayer1, scorePlayer2, twoPlayer } from "../$lib/stores.js";
-  import logo from "../assets/memo-logo.svg";
+  import Logo from "../assets/Logo.svelte";
   import seal from "../assets/memo-seal-color.svg";
 </script>
 
 <div id="sidebar">
   <div id="top">
-    <img id="logo" src={logo} alt="NASA-style logo, spelling the word 'MEMO'" />
-    <p id="test">Test your <span class="medium">memory</span> on these stunning space images, provided by NASA’s “Astronomy Photograph of the Day” archive.</p>
+    <div id="logo"><Logo color={"#FFFFFF"} /></div>
+    <p id="test">Prove you've got what it takes <span class="medium">memory</span> on these stunning space images, provided by NASA’s “Astronomy Photograph of the Day” archive.</p>
     <p>But work quick, your ability to commit these images to memory will decide if you get the job or not: on the next mission to the moon!</p>
   </div>
   <div id="bottom">

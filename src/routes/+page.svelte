@@ -1,17 +1,27 @@
 <script>
   export let data;
+  import { onMount } from "svelte";
+  import { fade } from "svelte/transition";
   import Game from "./Game.svelte";
   import Sidebar from "./Sidebar.svelte";
+  import Intro from "./Intro.svelte";
 
   import spaceBg from "../assets/space-bg.jpg";
+  let visible = false;
+  onMount(() => {
+    visible = true;
+  });
 </script>
 
-<main style={`background-image:url(${spaceBg})`}>
-  <div id="inner">
-    <Sidebar />
-    <Game {data} />
-  </div>
-</main>
+{#if visible}
+  <main style={`background-image:url(${spaceBg})`} transition:fade>
+    <div id="inner">
+      <Intro />
+      <Sidebar />
+      <Game {data} />
+    </div>
+  </main>
+{/if}
 
 <style lang="scss">
   @import "../src/styles/vars";
@@ -30,6 +40,8 @@
     min-height: 100vh;
     margin: 0;
     padding: 0;
+    font-size: clamp(0.8rem, 0.8vw, 1.5rem);
+    background-color: #000;
   }
   main {
     background-size: cover;

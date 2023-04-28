@@ -3,8 +3,8 @@
   import cardBg from "../assets/card-bg.jpg";
 </script>
 
-<div class="cardWrap">
-  <div class={item.selected ? "card selected" : item.hidden ? "card hidden" : "card"} on:click on:keydown>
+<div class={item.selected ? "cardWrap selected" : item.hidden ? "cardWrap hidden" : "cardWrap"}>
+  <div class="card" on:click on:keydown>
     <div class="cardSide image">
       <img src={item.url} alt={item.description} />
     </div>
@@ -34,6 +34,59 @@
       font-size: 0;
     }
 
+    &.selected .card,
+    &.selected .a11yBtn {
+      transform: rotateY(0);
+      pointer-events: none;
+      cursor: not-allowed;
+    }
+
+    &.hidden .card,
+    &.hidden .a11yBtn {
+      opacity: 0;
+      transform: scale(0.1);
+      pointer-events: none;
+    }
+
+    .card {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      transition: transform 1s, opacity 1s;
+      transform-style: preserve-3d;
+      cursor: pointer;
+      transform: rotateY(180deg);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .cardSide {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        box-sizing: border-box;
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        border-radius: 0.25vw;
+
+        img {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          border-radius: 0.25vw;
+        }
+      }
+
+      .image {
+        border: 0.25vw solid #fffdeb;
+      }
+
+      .back {
+        transform: rotateY(180deg);
+      }
+    }
+
     // usually don't love a bunch of media queries, but making an exception
     // to keep this grid filling the space as best as possible
     // using aspect-ratio queries to avoid having to mess with a million heights
@@ -59,57 +112,6 @@
     }
     @media (min-aspect-ratio: 210/100) {
       min-width: 10%;
-    }
-  }
-
-  .card {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    transition: transform 1s, opacity 1s;
-    transform-style: preserve-3d;
-    cursor: pointer;
-    transform: rotateY(180deg);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    &.selected {
-      transform: rotateY(0);
-      pointer-events: none;
-      cursor: not-allowed;
-    }
-
-    &.hidden {
-      opacity: 0;
-      transform: scale(0.1);
-      pointer-events: none;
-    }
-
-    .cardSide {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      box-sizing: border-box;
-      -webkit-backface-visibility: hidden;
-      backface-visibility: hidden;
-      border-radius: 0.25vw;
-
-      img {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        border-radius: 0.25vw;
-      }
-    }
-
-    .image {
-      border: 0.25vw solid #fffdeb;
-    }
-
-    .back {
-      transform: rotateY(180deg);
     }
   }
 </style>
