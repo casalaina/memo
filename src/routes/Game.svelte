@@ -55,24 +55,15 @@
 </div>
 
 <style lang="scss">
-  $wrapW: 80vw; // width of wrapper
-  $wrapH: 80vh; // height of wrapper
-  $ratioW: 400; // the natural width of background image
-  $ratioH: 225; // the natural height of background image
+  @import "../src/styles/vars";
 
   #grid {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 80vw;
-
+    width: 100%;
     height: auto;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    background-color: rgba(green, 0.5);
     margin: 0;
-    padding: 1%;
   }
 </style>

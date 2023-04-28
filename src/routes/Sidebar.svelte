@@ -22,23 +22,21 @@
 
   #sidebar {
     width: 100%;
-    height: 100%;
     color: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 
     font-weight: 300;
-    font-size: clamp(0.8rem, 1vw, 1.5rem);
+    font-size: clamp(0.8rem, 0.9vw, 1.5rem);
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
     flex-direction: column;
-    // color: $md;
-    height: 50px;
 
     @media #{$md} {
       width: 15vw;
+      padding: 0 2vw 0 0;
+    }
+
+    @media #{$lg} {
       padding: 0 5vw 0 0;
     }
   }

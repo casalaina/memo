@@ -7,8 +7,10 @@
 </script>
 
 <main style={`background-image:url(${spaceBg})`}>
-  <Sidebar />
-  <Game {data} />
+  <div id="inner">
+    <Sidebar />
+    <Game {data} />
+  </div>
 </main>
 
 <style lang="scss">
@@ -35,14 +37,20 @@
     height: 100%;
     min-height: 100vh;
     padding: 2vw;
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
-    flex-direction: column;
 
-    @media #{$md} {
-      padding: 2vw;
-      flex-direction: row;
+    #inner {
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-start;
+      flex-direction: column;
+      width: 100%;
+      align-items: stretch;
+      align-content: stretch;
+
+      @media #{$md} {
+        padding: 2vw;
+        flex-direction: row;
+      }
     }
   }
 </style>
