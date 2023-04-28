@@ -5,12 +5,12 @@
 </script>
 
 <div id="sidebar">
-  <div class="top">
+  <div id="top">
     <img id="logo" src={logo} alt="NASA-style logo, spelling the word 'MEMO'" />
     <p id="test">Test your <span class="medium">memory</span> on these stunning space images, provided by NASA’s “Astronomy Photograph of the Day” archive.</p>
     <p>But work quick, your ability to commit these images to memory will decide if you get the job or not: on the next mission to the moon!</p>
   </div>
-  <div class="bottom">
+  <div id="bottom">
     <div id="score">
       <p>
         {#if !$twoPlayer}
@@ -41,11 +41,14 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    flex-direction: column;
+    flex-direction: row;
+    padding: 1%;
 
     @media #{$md} {
-      width: 15vw;
+      flex-direction: column;
+
       padding: 1% 2vw 1% 0;
+      width: 15vw;
     }
 
     .medium {
@@ -53,7 +56,7 @@
     }
   }
 
-  .top {
+  #top {
     #logo {
       margin-bottom: 15%;
     }
@@ -67,23 +70,31 @@
     }
   }
 
-  .bottom {
+  #bottom {
     #score {
       margin-bottom: 20%;
+      text-align: right;
+
+      @media #{$md} {
+        text-align: left;
+      }
     }
     strong {
       margin-bottom: 2%;
       display: inline-block;
     }
 
+    #sealWrap {
+      display: none;
+
+      @media #{$md} {
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-end;
+      }
+    }
     #seal {
       margin: 0% 5% -2% -2%;
-    }
-
-    #sealWrap {
-      display: flex;
-      justify-content: flex-start;
-      align-items: flex-end;
     }
   }
 </style>
