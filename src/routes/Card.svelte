@@ -40,13 +40,11 @@
       min-width: 17%;
     }
     @media (min-aspect-ratio: 120/100) {
-      min-width: 15%;
       margin: 1%;
     }
-    // @media (min-aspect-ratio: 170/100) {
-    //   min-width: 14%;
-    //   margin: 1.25%;
-    // }
+    @media (min-aspect-ratio: 160/100) {
+      min-width: 15%;
+    }
     @media (min-aspect-ratio: 180/100) {
       min-width: 13%;
     }
