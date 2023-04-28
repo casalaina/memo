@@ -46,7 +46,6 @@
   .top {
     p {
       display: none;
-      color: $testVar;
       @media #{$md} {
         display: block;
       }

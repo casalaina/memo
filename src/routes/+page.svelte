@@ -11,7 +11,9 @@
   <Game {data} />
 </main>
 
-<style lang="scss" global>
+<style lang="scss">
+  @import "../src/styles/vars";
+
   :global(*) {
     font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     -webkit-font-smoothing: antialiased;
@@ -38,9 +40,9 @@
     align-items: flex-start;
     flex-direction: column;
 
-    // @media #{$md} {
-    //   padding: 2vw;
-    //   flex-direction: row;
-    // }
+    @media #{$md} {
+      padding: 2vw;
+      flex-direction: row;
+    }
   }
 </style>
