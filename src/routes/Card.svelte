@@ -1,5 +1,7 @@
 <script>
   export let item;
+  export let index;
+
   import cardBg from "../assets/card-bg.jpg";
 </script>
 
@@ -12,6 +14,7 @@
       <img src={cardBg} alt="back of card" />
     </div>
   </div>
+  <button class="a11yBtn" on:click>Select card</button>
 </div>
 
 <style lang="scss">
@@ -24,6 +27,14 @@
     perspective: 500px;
     flex-shrink: 1;
     aspect-ratio: 1/1;
+
+    .a11yBtn {
+      width: 100%;
+      height: 100%;
+      border: none;
+      background: transparent;
+      font-size: 0;
+    }
 
     // usually don't love a bunch of media queries, but making an exception
     // to keep this grid filling the space as best as possible

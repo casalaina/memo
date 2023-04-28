@@ -45,6 +45,7 @@
   {#each data.content as item, index}
     <Card
       {item}
+      {index}
       on:click={() => {
         cardLogic(index);
       }}
