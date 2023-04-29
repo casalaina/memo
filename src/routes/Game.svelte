@@ -45,7 +45,10 @@
         $twoPlayerGame && $player1 ? ($player1 = false) : ($player1 = true);
         data.content[card1].selected = data.content[card2].selected = false;
         card1 = card2 = undefined;
-        grid.style.pointerEvents = "all";
+        // extra pause to prevent hover stutter
+        setTimeout(function () {
+          grid.style.pointerEvents = "all";
+        }, 750);
       }, 1000);
     }
   };

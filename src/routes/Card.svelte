@@ -1,10 +1,19 @@
 <script>
   export let item;
   import cardBg from "../assets/card-bg.jpg";
+  let w;
+  let x;
 </script>
 
 <div class={item.selected ? "cardWrap selected" : item.hidden ? "cardWrap hidden" : "cardWrap"}>
-  <div class="card" on:click on:keydown>
+  <div
+    class={x < w / 2 ? "card left" : x > w / 2 ? "card right" : "card"}
+    on:click
+    on:keydown
+    on:mousemove={(e) => {
+      x = e.clientX - e.target.closest(".cardWrap").offsetLeft;
+    }}
+    bind:clientWidth={w}>
     <div class="cardSide image">
       <img src={item.url} alt={item.description} />
     </div>
@@ -59,6 +68,17 @@
       display: flex;
       justify-content: center;
       align-items: center;
+
+      &.left {
+        &:hover {
+          transform: rotateY(180deg) scale(1.05) rotateY(10deg);
+        }
+      }
+      &.right {
+        &:hover {
+          transform: rotateY(180deg) scale(1.05) rotateY(-10deg);
+        }
+      }
 
       .cardSide {
         position: absolute;
