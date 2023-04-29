@@ -1,6 +1,6 @@
 export const load = async ({ fetch }) => {
   const url = "https://apod.ellanan.com/api";
-  let count = 20;
+  let count = 30;
   let result = await fetch(`${url}?count=${count}`);
   let data = await result.json();
 
@@ -8,7 +8,7 @@ export const load = async ({ fetch }) => {
   // but again, quick and dirty. also this isn't checking for duplicates
   // FINE, maybe I'll circle back
   let filtered = data.filter(function (e) {
-    return e.media_type != "video";
+    return e.media_type != "video" && url != "";
   });
 
   // take the first 10, and duplicate all the array items to a new array (to avoid deep cloning)

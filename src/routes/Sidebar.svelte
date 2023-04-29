@@ -9,8 +9,8 @@
 <div id="sidebar">
   <div id="top">
     <div id="logo"><Logo color={"#FFFFFF"} /></div>
-    <p id="test">Prove you've got what it takes <span class="medium">memory</span> on these stunning space images, provided by NASA’s “Astronomy Photograph of the Day” archive.</p>
-    <p>But work quick, your ability to commit these images to memory will decide if you get the job or not: on the next mission to the moon!</p>
+    <p id="test">Prove you've got the <span class="medium">memory</span> on these stunning space images, provided by NASA’s “Astronomy Photograph of the Day” archive.</p>
+    <p>But work quick, your ability to commit these images to the dome will decide if you get the job or not: on the next mission to the moon!</p>
   </div>
   <div id="bottom">
     <div id="score">
