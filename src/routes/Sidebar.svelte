@@ -1,5 +1,7 @@
 <script>
-  import { scorePlayer1, scorePlayer2, twoPlayer } from "../$lib/stores.js";
+  import { fade } from "svelte/transition";
+
+  import { scorePlayer1, scorePlayer2, player1, twoPlayerGame } from "../$lib/stores.js";
   import Logo from "../assets/Logo.svelte";
   import seal from "../assets/memo-seal-color.svg";
 </script>
@@ -13,11 +15,18 @@
   <div id="bottom">
     <div id="score">
       <p>
-        {#if !$twoPlayer}
+        {#if !$twoPlayerGame}
           <strong>Total pairs found:</strong><br />
           {$scorePlayer1} / 10
         {:else}
-          score: {$scorePlayer2}
+          <div class={$player1 ? "player active" : "player"} id="scorePlayer1">
+            <strong>👨‍🚀 Cadet 1 Score:</strong>
+            {$scorePlayer1}
+          </div>
+          <div class={!$player1 ? "player active" : "player"} id="scorePlayer1">
+            <strong>👩‍🚀 Cadet 2 Score:</strong>
+            {$scorePlayer2}
+          </div>
         {/if}
       </p>
     </div>
@@ -95,6 +104,34 @@
     }
     #seal {
       margin: 0% 5% -2% -2%;
+    }
+  }
+
+  .player {
+    border-radius: 0.25vw;
+    padding: 0.5rem 1rem;
+    display: block;
+    transition: 1s background-color, 1s box-shadow, 1s color, 2s box-shadow;
+    color: white;
+
+    &:before {
+      content: "";
+      height: 1rem;
+      display: block;
+      opacity: 0;
+      transition: 1s opacity;
+    }
+
+    &.active {
+      background-color: rgba(white, 0.9);
+      color: black;
+      border-radius: 0.25vw;
+      box-shadow: 0 8px 8px -4px rgba(yellow, 0.4);
+
+      &:before {
+        content: "You're up:";
+        opacity: 1;
+      }
     }
   }
 </style>

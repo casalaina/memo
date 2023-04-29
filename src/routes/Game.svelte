@@ -1,7 +1,12 @@
 <script>
   export let data;
+  import { invalidateAll } from "$app/navigation";
+  import { twoPlayerGame, scorePlayer1, scorePlayer2, player1, gameOver } from "../$lib/stores.js";
+
   import Card from "./Card.svelte";
-  import { scorePlayer1, scorePlayer2 } from "../$lib/stores.js";
+
+  import { getNotificationsContext } from "svelte-notifications";
+  const { addNotification } = getNotificationsContext();
   let card1, card2;
   let grid;
 
@@ -11,15 +16,33 @@
     // if they match, up the score, hide elements, and reset vars
     if (data.content[card1].url === data.content[card2].url) {
       data.content[card1].hidden = data.content[card2].hidden = true;
+      addNotification({
+        text: $twoPlayerGame && $player1 ? "🚀 Match Cadet 1!" : $twoPlayerGame && !$player1 ? "🚀 Match Cadet 2!" : "🚀 Match!",
+        position: "bottom-center",
+        removeAfter: 2500,
+      });
+
       setTimeout(function () {
         data.content[card1].selected = data.content[card2].selected = false;
         grid.style.pointerEvents = "all";
-        $scorePlayer1++;
+        $player1 ? $scorePlayer1++ : $scorePlayer2++;
         card1 = card2 = undefined;
+        if ($scorePlayer1 + $scorePlayer2 === 1) {
+          $gameOver = true;
+          invalidateAll();
+        }
+        if ($twoPlayerGame && !$gameOver) {
+          addNotification({
+            text: $player1 ? "🫡 Go Again Cadet 1!" : "🫡 Go Again Cadet 2!",
+            position: "bottom-center",
+            removeAfter: 1500,
+          });
+        }
       }, 2000);
     } else {
       // otherwise flip back over, reset vars
       setTimeout(function () {
+        $twoPlayerGame && $player1 ? ($player1 = false) : ($player1 = true);
         data.content[card1].selected = data.content[card2].selected = false;
         card1 = card2 = undefined;
         grid.style.pointerEvents = "all";
@@ -73,5 +96,9 @@
     @media #{$xl} {
       max-width: auto;
     }
+  }
+
+  :global(.default-notification-style) {
+    font-weight: 600;
   }
 </style>

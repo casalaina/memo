@@ -2,9 +2,11 @@
   export let data;
   import { onMount } from "svelte";
   import { fade } from "svelte/transition";
+  import Notifications from "svelte-notifications";
+
   import Game from "./Game.svelte";
   import Sidebar from "./Sidebar.svelte";
-  import Intro from "./Intro.svelte";
+  import Overlay from "./Overlay.svelte";
 
   import spaceBg from "../assets/space-bg.jpg";
   let visible = false;
@@ -14,13 +16,15 @@
 </script>
 
 {#if visible}
-  <main style={`background-image:url(${spaceBg})`} transition:fade>
-    <div id="inner">
-      <Intro />
-      <Sidebar />
-      <Game {data} />
-    </div>
-  </main>
+  <Notifications>
+    <main style={`background-image:url(${spaceBg})`} transition:fade>
+      <div id="inner">
+        <Overlay />
+        <Sidebar />
+        <Game {data} />
+      </div>
+    </main>
+  </Notifications>
 {/if}
 
 <style lang="scss">
