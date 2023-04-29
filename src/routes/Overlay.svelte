@@ -3,7 +3,7 @@
   import { backOut } from "svelte/easing";
   import { fade } from "svelte/transition";
 
-  import { twoPlayerGame, gameOver, scorePlayer1, scorePlayer2 } from "../$lib/stores.js";
+  import { player1, twoPlayerGame, gameOver, scorePlayer1, scorePlayer2, namePlayer1, namePlayer2 } from "../$lib/stores.js";
 
   import Logo from "../assets/Logo.svelte";
   import wizz from "../assets/wizz.svg";
@@ -11,12 +11,14 @@
   import vid from "../assets/vid.mp4";
 
   let intro;
+  let newGame = true;
+  let selectNames = false;
   let visible = false;
   $: duration = !visible ? 200 : 1500;
   $: easing = backOut;
   $: optionsIn = { duration, easing, times: 1 };
 
-  function spin(node, options) {
+  let spin = (node, options) => {
     const { times = 1 } = options;
     return {
       ...options,
@@ -25,18 +27,23 @@
         return `transform: scale(${t}) rotate(${t * degrees}deg);`;
       },
     };
-  }
+  };
 
   const now = new Date();
   const date = now.toDateString().split(" ").slice(1).join(" ");
 
   let startGame = (twoPlayer) => {
     visible = false;
+    newGame = false;
     $gameOver = false;
     intro.style.pointerEvents = "none";
     $scorePlayer1 = $scorePlayer2 = 0;
+    $twoPlayerGame = false;
+    $player1 = true;
+
     if (twoPlayer) {
       $twoPlayerGame = true;
+      selectNames = false;
     }
   };
 
@@ -52,11 +59,11 @@
     <div id="page" transition:spin={optionsIn}>
       <div id="logo"><Logo color={"#FF0000"} /></div>
       <div>Official Letterhead</div>
-      {#if !$gameOver}
-        <div id="date">
+      {#if newGame}
+        <div id="date" transition:fade>
           {date}
         </div>
-        <div class="copy">
+        <div class="copy" transition:fade>
           <p>Cadet,</p>
 
           <p>We are very close to finalizing our decision on which of you will will travel on the Artemis II and which will keep your feet planted on earth. Considering you’ve all shown similar abilities with regards to low-g lunch-containment, high-pressure breath-holding, and deep-sea suit-wearing, you’ve made it a tough choice. Which leaves us with one final challenge.</p>
@@ -80,14 +87,30 @@
             tabindex="0">Start Single Game</button>
           <button
             on:click={() => {
-              startGame(true);
+              selectNames = true;
+              newGame = false;
             }}>Start 2-Player Game</button>
         </div>
-      {:else}
+      {:else if selectNames}
+        <div id="names" transition:fade>
+          <div>
+            <label for="player1"><strong>Name Cadet 1</strong></label>
+            <input type="text" name="" id="player1" placeholder={$namePlayer1} bind:value={$namePlayer1} on:focus={(event) => event.target.select()} />
+          </div>
+          <div>
+            <label for="player1"><strong>Name Cadet 1</strong></label>
+            <input type="text" name="" id="player1" placeholder={$namePlayer2} bind:value={$namePlayer2} on:focus={(event) => event.target.select()} />
+          </div>
+          <button
+            on:click={() => {
+              startGame(true);
+            }}>Start Game!</button>
+        </div>
+      {:else if $gameOver}
         <div>
           <h1 id="finalText">
             {#if $twoPlayerGame && $scorePlayer1 !== $scorePlayer2}
-              🚀 We have liftoff, <span class="craftGradient"><span>{$scorePlayer1 > $scorePlayer2 ? "Cadet 1" : "Cadet 2"}</span></span>!
+              🚀 We have liftoff, <span class="craftGradient"><span>{$scorePlayer1 > $scorePlayer2 ? $namePlayer1 : $namePlayer2}</span></span>!
             {:else if $twoPlayerGame && $scorePlayer1 == $scorePlayer2}
               <h1 class="final text">🤝 It's a tie!</h1>
             {:else}
@@ -97,7 +120,7 @@
           <video src={vid} autoplay muted loop />
           <div class="copy">
             {#if $scorePlayer1 !== $scorePlayer2}
-              <p>You did it, <strong>{$scorePlayer1 > $scorePlayer2 ? "Cadet 1" : $scorePlayer1 < $scorePlayer2 ? "Cadet 2" : "Cadet"}</strong>! Can't wait to hear a detailed report of all the amazing memories you've made in space. Good luck, and don't forget your toothbrush!</p>
+              <p>You did it, <strong>{$twoPlayerGame && $scorePlayer1 > $scorePlayer2 ? $namePlayer1 : $twoPlayerGame && $scorePlayer1 < $scorePlayer2 ? $namePlayer2 : "Cadet"}</strong>! Can't wait to hear a detailed report of all the amazing memories you've made in space. Good luck, and don't forget your toothbrush!</p>
             {:else if $scorePlayer1 == $scorePlayer2}
               <p>Amazing, you both did great. But there's only one seat left in the pod. Better try again!</p>
             {/if}
@@ -112,7 +135,7 @@
           <button
             on:click={() => {
               startGame(true);
-            }}>Start 2-Player Game</button>
+            }}>{!$twoPlayerGame ? "Start 2-Player Game" : "Have a Rematch!"}</button>
         </div>
       {/if}
 
@@ -193,30 +216,30 @@
     align-items: center;
     width: 100%;
     margin-top: 4rem;
+  }
 
-    button {
-      border: none;
-      margin: 0;
-      padding: 1rem 2rem;
-      width: auto;
-      overflow: visible;
-      background: transparent;
-      border: 0.1rem solid #ff0000;
-      color: #ff0000;
-      font-weight: 600;
-      flex-grow: 1;
-      cursor: pointer;
-      transition: 1s transform, 1s box-shadow;
+  button {
+    border: none;
+    margin: 0;
+    padding: 1rem 2rem;
+    width: 100%;
+    overflow: visible;
+    background: transparent;
+    border: 0.1rem solid #ff0000;
+    color: #ff0000;
+    font-weight: 600;
+    flex-grow: 1;
+    cursor: pointer;
+    transition: 1s transform, 1s box-shadow;
 
-      & + button {
-        margin-left: 1rem;
-      }
+    & + button {
+      margin-left: 1rem;
+    }
 
-      &:hover,
-      &:focus {
-        transform: translate(0, -1px);
-        box-shadow: 0 8px 8px -4px rgba(black, 0.2);
-      }
+    &:hover,
+    &:focus {
+      transform: translate(0, -1px);
+      box-shadow: 0 8px 8px -4px rgba(black, 0.2);
     }
   }
 
@@ -241,6 +264,7 @@
     margin: 4rem 0 2rem 0;
   }
 
+  .copy strong,
   .craftGradient {
     // Good artists copy, great artists steal!
     color: rgb(119, 74, 211);
@@ -254,5 +278,27 @@
 
   video {
     width: 100%;
+  }
+
+  #names {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    label {
+      display: block;
+      margin-top: 1rem;
+    }
+
+    input {
+      display: block;
+      margin: 0.25rem 0 1rem 0;
+      width: 100%;
+      padding: 0.25rem;
+      &:focus::placeholder {
+        color: transparent;
+      }
+    }
   }
 </style>

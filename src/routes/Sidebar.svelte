@@ -1,7 +1,7 @@
 <script>
   import { fade } from "svelte/transition";
 
-  import { scorePlayer1, scorePlayer2, player1, twoPlayerGame } from "../$lib/stores.js";
+  import { scorePlayer1, scorePlayer2, namePlayer1, namePlayer2, player1, twoPlayerGame } from "../$lib/stores.js";
   import Logo from "../assets/Logo.svelte";
   import seal from "../assets/memo-seal-color.svg";
 </script>
@@ -20,11 +20,11 @@
           {$scorePlayer1} / 10
         {:else}
           <div class={$player1 ? "player active" : "player"} id="scorePlayer1">
-            <strong>👨‍🚀 Cadet 1 Score:</strong>
+            <strong>👨‍🚀 {$namePlayer1}:</strong>
             {$scorePlayer1}
           </div>
           <div class={!$player1 ? "player active" : "player"} id="scorePlayer1">
-            <strong>👩‍🚀 Cadet 2 Score:</strong>
+            <strong>👩‍🚀 {$namePlayer2}:</strong>
             {$scorePlayer2}
           </div>
         {/if}
