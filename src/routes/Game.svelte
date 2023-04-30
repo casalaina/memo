@@ -27,13 +27,13 @@
         grid.style.pointerEvents = "all";
         $player1 ? $scorePlayer1++ : $scorePlayer2++;
         card1 = card2 = undefined;
-        if ($scorePlayer1 + $scorePlayer2 === 10) {
+        if ($scorePlayer1 + $scorePlayer2 === 1) {
           $gameOver = true;
           invalidateAll();
         }
         if ($twoPlayerGame && !$gameOver) {
           addNotification({
-            text: $player1 ? `🫡 Go Again ${namePlayer1}!" : "🫡 Go Again ${namePlayer2}!`,
+            text: $player1 ? `🫡 Go Again ${namePlayer1}!` : `🫡 Go Again ${namePlayer2}!`,
             position: "bottom-center",
             removeAfter: 1500,
           });

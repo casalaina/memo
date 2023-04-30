@@ -160,7 +160,7 @@
     right: 0;
     bottom: 0;
     left: 0;
-    font-size: clamp(0.7rem, 0.775vw, 1.25rem);
+    font-size: clamp(0.7rem, 0.725vw, 1.25rem);
     z-index: 1;
     display: flex;
     justify-content: center;
@@ -203,6 +203,7 @@
     margin-top: 3em;
     p {
       margin-bottom: 1.5rem;
+      line-height: clamp(0.95rem, 1.05vw, 1.15rem);
     }
   }
   #signature {
