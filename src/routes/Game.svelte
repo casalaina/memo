@@ -1,7 +1,7 @@
 <script>
   export let data;
   import { invalidateAll } from "$app/navigation";
-  import { twoPlayerGame, scorePlayer1, scorePlayer2, player1, gameOver } from "../$lib/stores.js";
+  import { twoPlayerGame, scorePlayer1, scorePlayer2, player1, gameOver, namePlayer1, namePlayer2 } from "../$lib/stores.js";
 
   import Card from "./Card.svelte";
 
@@ -17,7 +17,7 @@
     if (data.content[card1].url === data.content[card2].url) {
       data.content[card1].hidden = data.content[card2].hidden = true;
       addNotification({
-        text: $twoPlayerGame && $player1 ? "🚀 Match Cadet 1!" : $twoPlayerGame && !$player1 ? "🚀 Match Cadet 2!" : "🚀 Match!",
+        text: $twoPlayerGame && $player1 ? `🚀 Match ${namePlayer1}!` : $twoPlayerGame && !$player1 ? `🚀 Match ${namePlayer2}!` : "🚀 Match!",
         position: "bottom-center",
         removeAfter: 2500,
       });
@@ -33,7 +33,7 @@
         }
         if ($twoPlayerGame && !$gameOver) {
           addNotification({
-            text: $player1 ? "🫡 Go Again Cadet 1!" : "🫡 Go Again Cadet 2!",
+            text: $player1 ? `🫡 Go Again ${namePlayer1}!" : "🫡 Go Again ${namePlayer2}!`,
             position: "bottom-center",
             removeAfter: 1500,
           });
