@@ -72,7 +72,7 @@
         <div class="copy" transition:fade>
           <p>Cadet,</p>
 
-          <p>We are very close to finalizing our decision on which of you will will travel on the Artemis II and which will keep your feet planted on earth. Considering you’ve all shown similar abilities with regards to low-g lunch-containment, high-pressure breath-holding, and deep-sea suit-wearing, you’ve made it a tough choice. Which leaves us with one final challenge.</p>
+          <p>We are very close to finalizing our decision on which of you will travel on the Artemis II and which will keep your feet planted on earth. Considering you’ve all shown similar abilities with regards to low-g lunch-containment, high-pressure breath-holding, and deep-sea suit-wearing, you’ve made it a tough choice. Which leaves us with one final challenge.</p>
 
           <p class="hidden-sm">On that fateful day in 1969, when Neil Armstrong first touched down on the powdery surface of the moon, dude was tasked with remembering one simple line: “that’s one small step for <strong>a</strong> man, one giant leap for mankind.”</p>
 
@@ -171,7 +171,7 @@
     right: 0;
     bottom: 0;
     left: 0;
-    font-size: clamp(0.725rem, 0.725vw, 1.25rem);
+    font-size: clamp(0.8rem, 0.825vw, 0.925rem);
     z-index: 1;
     display: flex;
     justify-content: center;
@@ -232,10 +232,11 @@
     align-items: center;
     flex-wrap: wrap;
     width: 100%;
-    margin-top: 4rem;
+    margin-top: 2rem;
 
     @include from(sm) {
       flex-wrap: nowrap;
+      margin-top: 4rem;
     }
   }
 
