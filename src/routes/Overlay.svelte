@@ -119,7 +119,7 @@
               🚀 We have liftoff!
             {/if}
           </h1>
-          <video src={vid} autoplay muted loop />
+          <video src={vid} autoplay muted loop playsinline />
           <div class="copy">
             {#if $scorePlayer1 !== $scorePlayer2}
               <p>You did it, <strong>{$twoPlayerGame && $scorePlayer1 > $scorePlayer2 ? $namePlayer1 : $twoPlayerGame && $scorePlayer1 < $scorePlayer2 ? $namePlayer2 : "Cadet"}</strong>! Can't wait to hear a detailed report of all the amazing memories you've made in space. Good luck, and don't forget your toothbrush!</p>
@@ -133,7 +133,7 @@
             on:click={() => {
               startGame(false);
             }}
-            tabindex="0">Start Single Game</button>
+            tabindex="0">Start <span class="hidden-sm">Single</span> Game</button>
           <button
             class="hidden-sm"
             on:click={() => {
@@ -200,7 +200,7 @@
 
   .copy {
     width: 100%;
-    margin-top: 5em;
+    margin-top: 3em;
     p {
       margin-bottom: 1.5rem;
     }

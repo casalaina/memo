@@ -48,7 +48,7 @@
         // extra pause to prevent hover stutter
         setTimeout(function () {
           grid.style.pointerEvents = "all";
-        }, 750);
+        }, 500);
       }, 1000);
     }
   };

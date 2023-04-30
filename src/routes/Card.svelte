@@ -69,14 +69,16 @@
       justify-content: center;
       align-items: center;
 
-      &.left {
-        &:hover {
-          transform: rotateY(180deg) scale(1.05) rotateY(10deg);
+      @media (hover: hover) {
+        &.left {
+          &:hover {
+            transform: rotateY(180deg) scale(1.05) rotateY(10deg);
+          }
         }
-      }
-      &.right {
-        &:hover {
-          transform: rotateY(180deg) scale(1.05) rotateY(-10deg);
+        &.right {
+          &:hover {
+            transform: rotateY(180deg) scale(1.05) rotateY(-10deg);
+          }
         }
       }
 
