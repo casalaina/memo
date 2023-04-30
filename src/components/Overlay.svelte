@@ -278,7 +278,11 @@
     align-items: flex-end;
 
     #seal {
-      margin: 1rem 0.4rem 0 -0.2rem;
+      margin: 0 0.4rem 0 -0.2rem;
+
+      @include from(md) {
+        margin: 0 0.4rem 0.1rem -0.2rem;
+      }
     }
   }
 

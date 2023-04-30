@@ -7,28 +7,28 @@ export const load = async ({ fetch }) => {
   // quick and dirty way remove videos, this should be a Promise w/ a catch
   // but again, quick and dirty. also this isn't checking for duplicates
   // FINE, maybe I'll circle back
-  let filtered = data.filter(function (e) {
+  const filtered = data.filter(function (e) {
     return e.media_type != "video" && url != "";
   });
 
   // take the first 10, and duplicate all the array items to a new array (to avoid deep cloning)
   let limited = [];
 
-  let limitToTen = () => {
+  const limitToTen = () => {
     for (let i = 0; i < 10; i++) {
       limited[i] = JSON.parse(JSON.stringify(filtered[i]));
     }
   };
 
   // loop through and duplicate, again avoiding deep clones
-  let duplicate = () => {
+  const duplicate = () => {
     for (let i = 10; i < 20; i++) {
       limited[i] = JSON.parse(JSON.stringify(filtered[i - 10]));
     }
   };
 
   // add selected and hidden values, and sanitize data
-  let cleanUpData = () => {
+  const cleanUpData = () => {
     for (let i = 0; i < limited.length; i++) {
       limited[i].selected = false;
       limited[i].hidden = false;
@@ -41,7 +41,7 @@ export const load = async ({ fetch }) => {
   };
 
   // randomize array in-place
-  let shuffleArray = (array) => {
+  const shuffleArray = (array) => {
     for (let i = array.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [array[i], array[j]] = [array[j], array[i]];
