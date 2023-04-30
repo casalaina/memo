@@ -27,7 +27,7 @@
         grid.style.pointerEvents = "all";
         $player1 ? $scorePlayer1++ : $scorePlayer2++;
         card1 = card2 = undefined;
-        if ($scorePlayer1 + $scorePlayer2 === 1) {
+        if ($scorePlayer1 + $scorePlayer2 === 10) {
           $gameOver = true;
           invalidateAll();
         }
