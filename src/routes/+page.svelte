@@ -41,7 +41,7 @@
   :global(#svelte),
   :global(main) {
     width: 100vw;
-    min-height: 100vh;
+    min-height: 100dvh;
     margin: 0;
     padding: 0;
     font-size: clamp(0.8rem, 0.8vw, 1.5rem);
@@ -51,18 +51,20 @@
     background-size: cover;
     width: 100vw;
     height: 100%;
-    min-height: 100vh;
+    min-height: 100dvh;
     padding: 2vw;
+    position: relative;
 
     #inner {
+      width: 100%;
+      height: 100%;
+
       display: flex;
       justify-content: center;
       align-items: flex-start;
       flex-direction: column;
-      width: 100%;
       align-items: stretch;
       align-content: stretch;
-
       @media #{$md} {
         flex-direction: row;
       }

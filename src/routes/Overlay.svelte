@@ -16,7 +16,7 @@
   let visible = false;
   $: duration = !visible ? 200 : 1500;
   $: easing = backOut;
-  $: optionsIn = { duration, easing, times: 1 };
+  $: options = { duration, easing, times: 1 };
 
   let spin = (node, options) => {
     const { times = 1 } = options;
@@ -56,7 +56,7 @@
 
 {#if visible || $gameOver}
   <div id="intro" transition:fade bind:this={intro}>
-    <div id="page" transition:spin={optionsIn}>
+    <div id="page" transition:spin={options}>
       <div id="logo"><Logo color={"#FF0000"} /></div>
       <div>Official Letterhead</div>
       {#if newGame}
@@ -68,11 +68,11 @@
 
           <p>We are very close to finalizing our decision on which of you will will travel on the Artemis II and which will keep your feet planted on earth. Considering you’ve all shown similar abilities with regards to low-g lunch-containment, high-pressure breath-holding, and deep-sea suit-wearing, you’ve made it a tough choice. Which leaves us with one final challenge.</p>
 
-          <p>On that fateful day in 1969, when Neil Armstrong first touched down on the powdery surface of the moon, dude was tasked with remembering one simple line: “that’s one small step for <strong>a</strong> man, one giant leap for mankind.”</p>
+          <p class="hidden-sm">On that fateful day in 1969, when Neil Armstrong first touched down on the powdery surface of the moon, dude was tasked with remembering one simple line: “that’s one small step for <strong>a</strong> man, one giant leap for mankind.”</p>
 
-          <p>And what did he do? <a href="https://en.wikipedia.org/wiki/Neil_Armstrong#First_Moon_walk" target="_blank">Botched it</a>. He dropped the “a,” leaving generations perplexed as to the difference between the collective “man” and “mankind.”</p>
+          <p class="hidden-sm">And what did he do? <a href="https://en.wikipedia.org/wiki/Neil_Armstrong#First_Moon_walk" target="_blank">Botched it</a>. He dropped the “a,” leaving generations perplexed as to the difference between the collective “man” and “mankind.”</p>
 
-          <p>We’re not going to let that happen again. To prove your memory skills, we ask you to complete this final challenge. Your ability to do so may land you on the moon. Or at least among the stars.</p>
+          <p class="hidden-sm">We’re not going to let that happen again. To prove your memory skills, we ask you to complete this final challenge. Your ability to do so may land you on the moon. Or at least among the stars.</p>
         </div>
         <div id="signature">
           <p>Good luck,</p>
@@ -84,8 +84,9 @@
             on:click={() => {
               startGame(false);
             }}
-            tabindex="0">Start Single Game</button>
+            tabindex="0">Start <span class="hidden-sm">Single</span> Game</button>
           <button
+            class="hidden-sm"
             on:click={() => {
               selectNames = true;
               newGame = false;
@@ -102,6 +103,7 @@
             <input type="text" name="" id="player1" placeholder={$namePlayer2} bind:value={$namePlayer2} on:focus={(event) => event.target.select()} />
           </div>
           <button
+            class="hidden-sm"
             on:click={() => {
               startGame(true);
             }}>Start Game!</button>
@@ -133,6 +135,7 @@
             }}
             tabindex="0">Start Single Game</button>
           <button
+            class="hidden-sm"
             on:click={() => {
               startGame(true);
             }}>{!$twoPlayerGame ? "Start 2-Player Game" : "Have a Rematch!"}</button>
@@ -151,27 +154,27 @@
   @import "../src/styles/vars";
 
   #intro {
-    width: 100vw;
-    height: 100vh;
     background-color: rgba(black, 0.7);
     position: absolute;
     top: 0;
+    right: 0;
+    bottom: 0;
     left: 0;
+    font-size: clamp(0.7rem, 0.775vw, 1.25rem);
+    z-index: 1;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: clamp(0.7rem, 0.775vw, 1.25rem);
-    z-index: 1;
   }
 
   #page {
     position: absolute;
-    width: 90%;
-    height: 90%;
-    margin: 5%;
+    width: 94%;
+    height: 94%;
+    margin: 3%;
+    transform: rotate(-0.25deg);
     padding: 2em 4em 1em 4em;
     background: linear-gradient(343.02deg, rgba(126, 126, 126, 0.17) 5.85%, rgba(255, 255, 241, 0) 66.62%), #ffffff;
-    transform: rotate(-0.25deg);
     box-shadow: 0 8px 8px -4px black;
 
     display: flex;
@@ -214,8 +217,13 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
+    flex-wrap: wrap;
     width: 100%;
     margin-top: 4rem;
+
+    @media #{$sm} {
+      flex-wrap: nowrap;
+    }
   }
 
   button {
@@ -233,7 +241,10 @@
     transition: 1s transform, 1s box-shadow;
 
     & + button {
-      margin-left: 1rem;
+      margin: 1rem 0 0 0;
+      @media #{$sm} {
+        margin: 0 0 0 1rem;
+      }
     }
 
     &:hover,
@@ -299,6 +310,12 @@
       &:focus::placeholder {
         color: transparent;
       }
+    }
+  }
+
+  .hidden-sm {
+    @media (max-width: 700px) {
+      display: none;
     }
   }
 </style>

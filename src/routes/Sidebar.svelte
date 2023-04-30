@@ -1,6 +1,4 @@
 <script>
-  import { fade } from "svelte/transition";
-
   import { scorePlayer1, scorePlayer2, namePlayer1, namePlayer2, player1, twoPlayerGame } from "../$lib/stores.js";
   import Logo from "../assets/Logo.svelte";
   import seal from "../assets/memo-seal-color.svg";
