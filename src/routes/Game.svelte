@@ -17,7 +17,7 @@
     if (data.content[card1].url === data.content[card2].url) {
       data.content[card1].hidden = data.content[card2].hidden = true;
       addNotification({
-        text: $twoPlayerGame && $player1 ? `🚀 Match ${namePlayer1}!` : $twoPlayerGame && !$player1 ? `🚀 Match ${namePlayer2}!` : "🚀 Match!",
+        text: $twoPlayerGame && $player1 ? `🚀 Match ${$namePlayer1}!` : $twoPlayerGame && !$player1 ? `🚀 Match ${$namePlayer2}!` : "🚀 Match!",
         position: "bottom-center",
         removeAfter: 2500,
       });
@@ -27,13 +27,13 @@
         grid.style.pointerEvents = "all";
         $player1 ? $scorePlayer1++ : $scorePlayer2++;
         card1 = card2 = undefined;
-        if ($scorePlayer1 + $scorePlayer2 === 1) {
+        if ($scorePlayer1 + $scorePlayer2 === 10) {
           $gameOver = true;
           invalidateAll();
         }
         if ($twoPlayerGame && !$gameOver) {
           addNotification({
-            text: $player1 ? `🫡 Go Again ${namePlayer1}!` : `🫡 Go Again ${namePlayer2}!`,
+            text: $player1 ? `🫡 Go Again ${$namePlayer1}!` : `🫡 Go Again ${$namePlayer2}!`,
             position: "bottom-center",
             removeAfter: 1500,
           });
