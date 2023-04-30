@@ -3,18 +3,20 @@
   import { backOut } from "svelte/easing";
   import { fade } from "svelte/transition";
 
-  import { player1, twoPlayerGame, gameOver, scorePlayer1, scorePlayer2, namePlayer1, namePlayer2 } from "../$lib/stores.js";
+  import { player1, twoPlayerGame, gameOver, scorePlayer1, scorePlayer2, namePlayer1, namePlayer2 } from "~/lib/stores.js";
 
-  import Logo from "../assets/Logo.svelte";
-  import wizz from "../assets/wizz.svg";
-  import seal from "../assets/memo-seal-bw.svg";
-  import vid from "../assets/vid.mp4";
+  import Logo from "~/assets/Logo";
+  import wizz from "~/assets/wizz.svg";
+  import seal from "~/assets/memo-seal-bw.svg";
+  import vid from "~/assets/vid.mp4";
 
   let intro;
   let newGame = true;
   let selectNames = false;
   let visible = false;
-  $: duration = !visible ? 200 : 1500;
+
+  // extreme spin-in effect
+  $: duration = !visible ? 400 : 1500;
   $: easing = backOut;
   $: options = { duration, easing, times: 1 };
 
@@ -29,10 +31,12 @@
     };
   };
 
+  // set date
   const now = new Date();
   const date = now.toDateString().split(" ").slice(1).join(" ");
 
-  let startGame = (twoPlayer) => {
+  // start game
+  const startGame = (twoPlayer) => {
     visible = false;
     newGame = false;
     $gameOver = false;
@@ -59,6 +63,8 @@
     <div id="page" transition:spin={options}>
       <div id="logo"><Logo color={"#FF0000"} /></div>
       <div>Official Letterhead</div>
+
+      <!-- New Game -->
       {#if newGame}
         <div id="date" transition:fade>
           {date}
@@ -92,6 +98,8 @@
               newGame = false;
             }}>Start 2-Player Game</button>
         </div>
+
+        <!-- 2 Player Name Selection -->
       {:else if selectNames}
         <div id="names" transition:fade>
           <div>
@@ -108,6 +116,8 @@
               startGame(true);
             }}>Start Game!</button>
         </div>
+
+        <!-- End Screen -->
       {:else if $gameOver}
         <div>
           <h1 id="finalText">
@@ -142,6 +152,7 @@
         </div>
       {/if}
 
+      <!-- Page Footer -->
       <div id="footer">
         <img id="seal" src={seal} alt="NASA-style 60s seal, spelling the word 'MEMO'" />
         <p><strong>Authorized</strong> for <br />MEMO personnel only.</p>
@@ -151,7 +162,7 @@
 {/if}
 
 <style lang="scss">
-  @import "../src/styles/vars";
+  @use "../src/styles/vars" as *;
 
   #intro {
     background-color: rgba(black, 0.7);
@@ -160,7 +171,7 @@
     right: 0;
     bottom: 0;
     left: 0;
-    font-size: clamp(0.7rem, 0.725vw, 1.25rem);
+    font-size: clamp(0.725rem, 0.725vw, 1.25rem);
     z-index: 1;
     display: flex;
     justify-content: center;
@@ -182,7 +193,7 @@
     align-items: flex-start;
     flex-direction: column;
 
-    @media #{$md} {
+    @include from(md) {
       width: 67vh;
       height: 90vh;
       padding: 5em 7.5em 2em 7.5em;
@@ -206,6 +217,7 @@
       line-height: clamp(0.95rem, 1.05vw, 1.15rem);
     }
   }
+
   #signature {
     .caption {
       display: block;
@@ -222,7 +234,7 @@
     width: 100%;
     margin-top: 4rem;
 
-    @media #{$sm} {
+    @include from(sm) {
       flex-wrap: nowrap;
     }
   }
@@ -243,7 +255,7 @@
 
     & + button {
       margin: 1rem 0 0 0;
-      @media #{$sm} {
+      @include from(sm) {
         margin: 0 0 0 1rem;
       }
     }
@@ -263,6 +275,7 @@
     display: flex;
     justify-content: flex-start;
     align-items: flex-end;
+
     #seal {
       margin: 1rem 0.4rem 0 -0.2rem;
     }
@@ -311,12 +324,6 @@
       &:focus::placeholder {
         color: transparent;
       }
-    }
-  }
-
-  .hidden-sm {
-    @media (max-width: 700px) {
-      display: none;
     }
   }
 </style>

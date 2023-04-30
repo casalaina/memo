@@ -1,19 +1,29 @@
 <script>
   export let item;
-  import cardBg from "../assets/card-bg.jpg";
+  import cardBg from "~/assets/card-bg.jpg";
+
+  // card hover effect
   let w;
   let x;
+  let hoverLeft = false;
+  let hoverRight = false;
+
+  const onMousemove = (e) => {
+    x = e.clientX - e.target.closest(".cardWrap").offsetLeft;
+    if (x < w / 2) {
+      hoverRight = false;
+      hoverLeft = true;
+    } else if (x > w / 2) {
+      hoverLeft = false;
+      hoverRight = true;
+    } else {
+      hoverLeft = hoverRight = false;
+    }
+  };
 </script>
 
-<div class={item.selected ? "cardWrap selected" : item.hidden ? "cardWrap hidden" : "cardWrap"}>
-  <div
-    class={x < w / 2 ? "card left" : x > w / 2 ? "card right" : "card"}
-    on:click
-    on:keydown
-    on:mousemove={(e) => {
-      x = e.clientX - e.target.closest(".cardWrap").offsetLeft;
-    }}
-    bind:clientWidth={w}>
+<div class="cardWrap" class:selected={item.selected} class:hidden={item.hidden}>
+  <div class="card" class:left={hoverLeft} class:right={hoverRight} on:click on:keydown on:mousemove={onMousemove} bind:clientWidth={w}>
     <div class="cardSide image">
       <img src={item.url} alt={item.description} />
     </div>
@@ -53,7 +63,7 @@
     &.hidden .card,
     &.hidden .a11yBtn {
       opacity: 0;
-      transform: scale(0.1);
+      transform: scale(0.1) rotateY(180deg);
       pointer-events: none;
     }
 

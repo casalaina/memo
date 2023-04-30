@@ -1,7 +1,7 @@
 <script>
-  import { scorePlayer1, scorePlayer2, namePlayer1, namePlayer2, player1, twoPlayerGame } from "../$lib/stores.js";
-  import Logo from "../assets/Logo.svelte";
-  import seal from "../assets/memo-seal-color.svg";
+  import { scorePlayer1, scorePlayer2, namePlayer1, namePlayer2, player1, twoPlayerGame } from "~/lib/stores.js";
+  import Logo from "~/assets/Logo.svelte";
+  import seal from "~/assets/memo-seal-color.svg";
 </script>
 
 <div id="sidebar">
@@ -17,11 +17,11 @@
           <strong>Total pairs found:</strong><br />
           {$scorePlayer1} / 10
         {:else}
-          <div class={$player1 ? "player active" : "player"} id="scorePlayer1">
+          <div class="player" class:active={$player1} id="scorePlayer1">
             <strong>👨‍🚀 {$namePlayer1}:</strong>
             {$scorePlayer1}
           </div>
-          <div class={!$player1 ? "player active" : "player"} id="scorePlayer1">
+          <div class="player" class:active={!$player1} id="scorePlayer1">
             <strong>👩‍🚀 {$namePlayer2}:</strong>
             {$scorePlayer2}
           </div>
@@ -36,7 +36,7 @@
 </div>
 
 <style lang="scss">
-  @import "../src/styles/vars";
+  @use "../src/styles/vars" as *;
 
   #sidebar {
     width: 100%;
@@ -51,7 +51,7 @@
     flex-direction: row;
     padding: 1%;
 
-    @media #{$md} {
+    @include from(md) {
       flex-direction: column;
 
       padding: 1% 2vw 1% 0;
@@ -71,7 +71,8 @@
       display: none;
       max-width: 10rem;
       margin-bottom: 15%;
-      @media #{$md} {
+
+      @include from(md) {
         display: block;
       }
     }
@@ -82,7 +83,7 @@
       margin-bottom: 20%;
       text-align: right;
 
-      @media #{$md} {
+      @include from(md) {
         text-align: left;
       }
     }
@@ -94,7 +95,7 @@
     #sealWrap {
       display: none;
 
-      @media #{$md} {
+      @include from(md) {
         display: flex;
         justify-content: flex-start;
         align-items: flex-end;
